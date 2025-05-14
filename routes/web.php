@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsersControllers;
+use App\Http\Controllers\ProductionReportController;
 
 Route::get('/',[HomeController::class,'index']);
 
@@ -28,10 +29,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/userUpdate/{id}', [UsersControllers::class, 'edit'])->name('admin.userEdit'); // Show form
     Route::put('admin/userUpdate/{id}', [UsersControllers::class, 'update'])->name('admin.userUpdate'); // Submit update
 
-        // Production Report Route
-    Route::get('report/productionReport', function () {
-        return view('report.productionReport');
-    })->name('report.productionReport');
+    // Production Report Route
+    Route::get('report/production_report', [ProductionReportController::class, 'index'])->name('report.production_report');
+
+    Route::get('addProduction',[ProductionReportController::class,'addProduction']);
+    Route::post('productionreport_post',[ProductionReportController::class,'productionreport_post']);
+
+    Route::get('report/view_report/{id}',[ProductionReportController::Class,'view_report'])->name('report.view_report');
+
 });
 
 //Manager
