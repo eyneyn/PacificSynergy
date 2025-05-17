@@ -8,6 +8,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\ManagerMiddleware;
 use App\Http\Middleware\AnalystMiddleware;
 use App\Http\Middleware\SeniorMiddleware;
+use App\Http\Middleware\CanViewReports;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,10 +21,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => AdminMiddleware::class,
             'manager' => ManagerMiddleware::class,
             'analyst' => AnalystMiddleware::class,
-            'senior' => SeniorMiddleware::class
+            'senior' => SeniorMiddleware::class,
+            'can_view_reports' => CanViewReports::class
         ]);
-
     })
+    ->withProviders([
+        App\Providers\ViewServiceProvider::class, // ✅ <-- Add this line
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

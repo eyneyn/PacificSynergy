@@ -63,7 +63,7 @@ class AuthController extends Controller
     }
     public function registration()
     {
-        return view('admin.registration');
+        return view('auth.registration');
     }
     public function registration_post(Request $request)
     {

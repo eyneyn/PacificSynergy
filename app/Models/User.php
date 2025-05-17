@@ -54,11 +54,11 @@ class User extends Authenticatable
     public function getRoleNameAttribute()
     {
         return match($this->is_role) {
-        3 => 'Admin',
-        2 => 'Manager',
-        1 => 'Analyst',
-        0 => 'Senior',
-        default => 'Unknown',
+            0 => 'senior',
+            1 => 'analyst',
+            2 => 'manager',
+            3 => 'admin',
+            default => 'unknown',
         };
     }
     public function getPhotoUrlAttribute()

@@ -9,13 +9,8 @@ class ProductionReportUpdate extends Model
     protected $fillable = [
         'production_report_id',
         'user_id',
-        'user_name',
-        'changed_fields',
+        'status',
         'remarks',
-    ];
-
-    protected $casts = [
-        'changed_fields' => 'array',
     ];
 
     public function report()
@@ -27,4 +22,6 @@ class ProductionReportUpdate extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public $timestamps = true;
+    const CREATED_AT = null;
 }

@@ -1,65 +1,143 @@
-@extends('layouts.adminNavbar')
+@extends('layouts.navbar')
 
 @section('content')
     <!-- Heading -->
     <nav class="flex mb-4" aria-label="Breadcrumb">
-    <ol class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
-        <li class="inline-flex items-center">
-            <a href="{{url('admin/index')}}" class="inline-flex items-center text-sm font-medium text-blue-800 hover:text-blue-600">
-                <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
-                </svg>
-                Senior Production
-            </a>
-        </li>
-        <li>
-            <div class="flex items-center">
-                <svg class="w-3 h-3 text-blue-800 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                </svg>
-                <a href="#" class="ms-1 text-sm font-medium text-blue-800 hover:text-blue-600 md:ms-2">Production Reports</a>
-            </div>
-        </li>
-        <li>
-          <div class="flex items-center">
-              <svg class="w-3 h-3 text-blue-800 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-              </svg>
-              <a href="#" class="ms-1 text-sm font-medium text-blue-800 hover:text-blue-600 md:ms-2">View Report</a>
-          </div>
-        </li>
-    </ol>
+        <ol class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
+            <li class="inline-flex items-center">
+                <a href="{{url('report/production_report')}}" class="inline-flex items-center text-xs font-medium text-blue-800 hover:text-blue-600">
+                    <svg class="w-2 h-2  me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                    </svg>
+                    Production Reports
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-2 h-2 text-blue-800 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <a href="" class="disabled-link ms-1 text-xs font-medium text-blue-800 hover:text-blue-600 md:ms-2">View Production Report</a>
+                </div>
+            </li>
+        </ol>
     </nav>
 
-    <div class="max-w-5xl mt-8 mx-auto py-5 px-5">
-
-    <div class="flex flex-column mt-5 sm:flex-row flex-wrap space-y-4 justify-between sm:space-y-0 items-center pb-4">
-        <!-- Status Section: Make it in the same line and bold 'Verified' -->
+    <div class="flex flex-column sm:flex-row flex-wrap space-y-4 justify-between sm:space-y-0 items-center">
+        <!-- Status Section -->
         <div class="flex items-center space-x-2">
-            <h2 class="text-lg font-medium">Status:</h2>
-            <span class="text-lg font-bold">{{$reports->status}}</span>
+            <h2 class="text-sm font-medium text-blue-950">Status:</h2>
+            <span class="px-3 py-1 rounded-full text-sm font-semibold 
+                @if($reports->status === 'Verified') bg-green-100 text-green-800 
+                @elseif($reports->status === 'Pending') bg-yellow-100 text-yellow-800 
+                @else bg-red-100 text-red-800 
+                @endif">
+                {{ $reports->status }}
+            </span>
         </div>
-        <!-- Export to PDF-->
-        <div class="flex space-y-4 justify-end pb-4">
-            <a href=""
-                class="inline-flex items-center gap-2 px-5 py-2 rounded-lg text-white bg-[#242c67] hover:bg-[#1e2d57] shadow-md transition-all duration-300">
-                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <title>pdf-document</title>
-                        <g id="add" fill="currentColor" transform="translate(85.333333, 42.666667)">
-                            <path d="M75.9466667,285.653333 C63.8764997,278.292415 49.6246897,275.351565 35.6266667,277.333333 L1.42108547e-14,277.333333 L1.42108547e-14,405.333333 L28.3733333,405.333333 L28.3733333,356.48 L40.5333333,356.48 C53.1304778,357.774244 65.7885986,354.68506 76.3733333,347.733333 C85.3576891,340.027178 90.3112817,328.626053 89.8133333,316.8 C90.4784904,304.790173 85.3164923,293.195531 75.9466667,285.653333 L75.9466667,285.653333 Z M53.12,332.373333 C47.7608867,334.732281 41.8687051,335.616108 36.0533333,334.933333 L27.7333333,334.933333 L27.7333333,298.666667 L36.0533333,298.666667 C42.094796,298.02451 48.1897668,299.213772 53.5466667,302.08 C58.5355805,305.554646 61.3626692,311.370371 61.0133333,317.44 C61.6596233,323.558965 58.5400493,329.460862 53.12,332.373333 L53.12,332.373333 Z M150.826667,277.333333 L115.413333,277.333333 L115.413333,405.333333 L149.333333,405.333333 C166.620091,407.02483 184.027709,403.691457 199.466667,395.733333 C216.454713,383.072462 225.530463,362.408923 223.36,341.333333 C224.631644,323.277677 218.198313,305.527884 205.653333,292.48 C190.157107,280.265923 170.395302,274.806436 150.826667,277.333333 L150.826667,277.333333 Z M178.986667,376.32 C170.098963,381.315719 159.922142,383.54422 149.76,382.72 L144.213333,382.72 L144.213333,299.946667 L149.333333,299.946667 C167.253333,299.946667 174.293333,301.653333 181.333333,308.053333 C189.877212,316.948755 194.28973,329.025119 193.493333,341.333333 C194.590843,354.653818 189.18793,367.684372 178.986667,376.32 L178.986667,376.32 Z M254.506667,405.333333 L283.306667,405.333333 L283.306667,351.786667 L341.333333,351.786667 L341.333333,329.173333 L283.306667,329.173333 L283.306667,299.946667 L341.333333,299.946667 L341.333333,277.333333 L254.506667,277.333333 L254.506667,405.333333 L254.506667,405.333333 Z M234.666667,7.10542736e-15 L9.52127266e-13,7.10542736e-15 L9.52127266e-13,234.666667 L42.6666667,234.666667 L42.6666667,192 L42.6666667,169.6 L42.6666667,42.6666667 L216.96,42.6666667 L298.666667,124.373333 L298.666667,169.6 L298.666667,192 L298.666667,234.666667 L341.333333,234.666667 L341.333333,106.666667 L234.666667,7.10542736e-15 L234.666667,7.10542736e-15 Z" id="document-pdf"> </path>
-                        </g>
-                    </g>
-                </svg>
-                <span class="text-sm">Export to PDF</span>
-            </a>
-        </div>
+        <!-- Edit, verify, Export -->
+        <div class="flex justify-end gap-1">
+            @if (auth()->user()->is_role != 0)
+            <!-- Trigger Button: Only visible if NOT Approved -->
+            @if ($reports->status !== 'Approved')
+                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
+                    class="flex items-center gap-2 px-4 py-2 bg-transparent border border-[#444d90] hover:bg-[#444d90] text-blue-950 hover:text-white text-sm font-medium rounded-lg shadow-sm transition duration-200">
+                    Verify Report
+                </button>
+            @endif
+                <!-- Modal -->
+                <div id="popup-modal" tabindex="-1"
+                    class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden px-4 py-6 overflow-y-auto">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-full max-w-md relative p-6 transition-all duration-300">
+                        <!-- Close Button -->
+                        <button type="button"
+                            class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-white"
+                            data-modal-hide="popup-modal">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
 
+                        <!-- Form -->
+                        <form method="POST" action="{{ route('report.verify') }}" class="space-y-5">
+                            @csrf
+                            <input type="hidden" name="production_report_id" value="{{ $reports->id }}">
+
+                            <!-- Icon -->
+                            <div class="text-center">
+                                <svg class="mx-auto text-gray-400 w-12 h-12 dark:text-gray-300 mb-2" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                                    Update Report Status
+                                </h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                    Select the final status and add optional remarks.
+                                </p>
+                            </div>
+
+                            <!-- Status -->
+                            <div>
+                                <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Status</label>
+                                <select name="status" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#444d90] dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                                    <option value="" disabled selected>Select status</option>
+                                    <option value="Approved">Approve</option>
+                                    <option value="Rejected">Reject</option>
+                                </select>
+                            </div>
+
+                            <!-- Remarks -->
+                            <div>
+                                <label for="remarks" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Remarks</label>
+                                <textarea name="remarks" rows="3" placeholder="Optional remarks..."
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#444d90] dark:bg-gray-700 dark:text-white dark:border-gray-600"></textarea>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex justify-end gap-3 pt-3">
+                                <button type="button" data-modal-hide="popup-modal"
+                                    class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 dark:hover:bg-gray-600">
+                                    Cancel
+                                </button>
+                                <button type="submit"
+                                    class="px-5 py-2.5 text-sm font-medium text-white bg-[#444d90] hover:bg-[#2c366d] rounded-lg transition">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <!-- Edit -->
+            <a href="{{ route('report.edit_report', ['id' => $reports->id]) }}" class="flex items-center gap-2 px-4 py-2 bg-transparent border border-[#444d90] hover:bg-[#444d90] text-blue-950 hover:text-white text-sm font-medium rounded-lg shadow-sm transition duration-200">
+                Edit Report
+            </a>
+            @endif
+            <!-- Export -->
+            <div>
+                <form method="POST" action="{{ route('download-pdf') }}" target="_blank">
+                    @csrf
+                    <input type="hidden" name="report_id" value="{{ $reports->id }}">
+                    <button type="submit"
+                        class="flex items-center gap-2 px-4 py-2 bg-[#323B76] border border-[#444d90] hover:bg-[#444d90] text-white text-sm font-medium rounded-lg shadow-sm transition duration-200">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M5 20h14v-2H5m14-9h-5V3H10v6H5l7 7 7-7z" />
+                        </svg>
+                        Export to PDF
+                    </button>
+                </form>
+            </div>
         </div>
+    </div>
+
+    <div class="w-full mx-auto bg-white border border-gray-200 rounded-sm shadow-lg p-10 mt-5 mb-10 transition-all duration-300 hover:shadow-xl">
+
         <!-- STEP 1: General Info -->
-            <div class="space-y-6">
+            <div class="space-y-6 text-blue-950">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label for="production_date" class="block mb-1 text-sm font-medium">Production Date</label>
@@ -112,21 +190,23 @@
             </div>
 
                 <!-- STEP 2: Filling & Molding -->
-            <div class="space-y-6">
+            <div class="space-y-6 text-blue-950">
             <div class="relative grid grid-cols-1 md:grid-cols-2 mt-7 gap-6">
-
                 <!-- Filling Line -->
                 <div class="space-y-4 pr-4">
                     <h2 class="font-bold text-lg">Filling Line</h2>
                     <div class="grid grid-cols-1 gap-3">
-                        <div> 
-                            <label for="fl_bottle_code" class="block text-sm font-medium">Bottle Code</label>
-                            <input disabled value="{{$reports->fl_bottle_code}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
-                        </div>
-                        <div>
-                            <label for="fl_filler_speed" class="block text-sm font-bold">Speed (Bottle per hour)</label>
-                            <label for="fl_filler_speed" class="block text-xs font-medium">Filler Speed</label>
-                            <input disabled value="{{$reports->fl_filler_speed}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
+                        <div class="grid grid-cols-2 gap-1 mt-1">
+                            <div> 
+                                <label for="fl_filler_speed" class="block text-sm font-bold invisible">Placeholder</label>
+                                <label for="fl_bottle_code" class="block text-xs font-medium">Bottle Code</label>
+                                <input disabled value="{{$reports->fl_bottle_code}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
+                            </div>
+                            <div>
+                                <label for="fl_filler_speed" class="block text-sm font-bold">Speed (Bottle per hour)</label>
+                                <label for="fl_filler_speed" class="block text-xs font-medium">Filler Speed</label>
+                                <input disabled value="{{$reports->fl_filler_speed}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
+                            </div>
                         </div>
                         <div>
                             <label class="block text-sm font-semibold mb-2">RM Rejects (Qty/Code)</label>
@@ -141,23 +221,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-1 mt-1">
+                        <div class="grid grid-cols-1 gap-1 mt-1">
                             <div>
                                 <label for="fl_labeler_speed" class="block text-xs font-medium">Opp/Labeler Speed</label>
-                                <input disabled value="{{$reports->fl_labeler_speed}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
+                                <input disabled value="{{$reports->fl_labeler_speed}}" class="w-1/2 border border-[#0F1C39] text-center rounded-md p-1" />
                             </div>
-                            <div class="grid grid-cols-1 gap-1 mt-2">
-                                <div class="flex items-center justify-between gap-2">
+                            <div class="grid grid-cols-3 gap-1 mt-1">
+                                <div>
                                     <label for="fl_caps" class="text-xs w-1/2 text-right">Caps (pcs)</label>
-                                    <input disabled value="{{$reports->fl_caps}}" class="w-1/2 border border-[#0F1C39] text-center rounded-md p-1" />
+                                    <input disabled value="{{$reports->fl_caps}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
                                 </div>
-                                <div class="flex items-center justify-between gap-2">
+                                <div>
                                     <label for="fl_bottle_pcs" class="text-xs w-1/2 text-right">Bottle (pcs)</label>
-                                    <input disabled value="{{$reports->fl_bottle_pcs}}" class="w-1/2 border border-[#0F1C39] text-center rounded-md p-1" />
+                                    <input disabled value="{{$reports->fl_bottle_pcs}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
                                 </div>
-                                <div class="flex items-center justify-between gap-2">
+                                <div>
                                     <label for="fl_total_downtime" class="text-xs w-1/2 text-right font-bold">Total Downtime</label>
-                                    <input disabled value="{{$reports->fl_total_downtime}}" class="w-1/2 border border-[#0F1C39] text-center rounded-md p-1" />
+                                    <input disabled value="{{$reports->fl_total_downtime}}" class="w-full border border-[#0F1C39] text-center rounded-md p-1" />
                                 </div>
                             </div>
                         </div>
@@ -197,7 +277,7 @@
             </div>
 
              <!-- STEP 3: Issues -->
-                <div class="space-y-4 mt-7">
+                <div class="space-y-4 mt-7 text-blue-950">
                     <h2 class="font-bold text-lg">Issues / Downtime / Remarks</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -216,8 +296,8 @@
                 </div>
 
                 <!-- STEP 4: QA / QC -->
-                <div class="space-y-4 mt-7">
-
+                <div class="space-y-4 mt-7 text-blue-950">
+                    
                 <!-- QA -->
                 <div class="space-y-4">
                 <div class="grid grid-cols-1 gap-3">
@@ -276,30 +356,35 @@
                     <div class="grid md:grid-cols-10 gap-2 items-end">
                         <div class="md:col-span-2">
                             <label for="lr_bPinHole" class="text-xs w-1/2 text-right">Bottle with Pin Hole</label>
-                            <input name="lr_bPinHole" id="lr_bPinHole" placeholder="0" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
+                            <input disabled value="{{$reports->lr_bPinHole}}" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
                         </div>
                         <div class="md:col-span-2">
                             <label for="lr_visibleGlue" class="text-xs w-1/2 text-right">Visible Glue</label>
-                            <input name="lr_visibleGlue" id="lr_visibleGlue" placeholder="0" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
+                            <input disabled value="{{$reports->lr_visibleGlue}}" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
                         </div>
                         <div class="md:col-span-2">
                             <label for="lr_smBottle" class="text-xs w-1/2 text-right">Sticky/Messy Bottle</label>
-                            <input name="lr_smBottle" id="lr_smBottle" placeholder="0" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
+                            <input disabled value="{{$reports->lr_smBottle}}" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
                         </div>
                         <div class="md:col-span-2">
                             <label for="lr_lRedTape"class="text-xs w-1/2 text-right">Label with Red Tape</label>
-                            <input name="lr_lRedTape" id="lr_lRedTape" placeholder="0" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
+                            <input disabled value="{{$reports->lr_lRedTape}}" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
                         </div>
                         <div class="md:col-span-2">
                             <label for="lr_dentedB"class="text-xs w-1/2 text-right">Dented Bottle</label>
-                            <input name="lr_dentedB" id="lr_dentedB" placeholder="0" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
+                            <input disabled value="{{$reports->lr_dentedB}}" class="w-full border border-[#0F1C39] text-sm text-center rounded-md p-2" />
                         </div>
                     </div>
                 </div>
                 </div>
+
             </div>
-            <!-- Below the Inputs -->
-            <div class="mt-10">
+    </div>
+
+    <div class="w-3xl mx-auto bg-white border border-gray-200 rounded-sm shadow-lg px-8 py-10 mt-5 mb-10 transition-all duration-300 hover:shadow-xl">
+
+        <!-- Record Information -->
+        <div class="w-full w-mx-lg text-blue-950">
                 <h3 class="text-lg font-semibold mb-2">Record Information</h3>
                 <table class="min-w-full text-sm border border-[#0F1C39] rounded-md">
                     <thead class="bg-[#f1f5f9]">
@@ -312,18 +397,29 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="px-4 py-2 border-b border-[#0F1C39]">2025-05-13</td>
-                            <td class="px-4 py-2 border-b border-[#0F1C39]">#12345</td>
-                            <td class="px-4 py-2 border-b border-[#0F1C39]">Submitted</td>
+                            <td class="px-4 py-2 border-b border-[#0F1C39]">{{$reports->created_at}}</td>
+                            <td class="px-4 py-2 border-b border-[#0F1C39]">{{$reports->user->employee_number}}</td>
+                            <td class="px-4 py-2 border-b border-[#0F1C39]">{{$reports->status}}</td>
                             <td class="px-4 py-2 border-b border-[#0F1C39]"></td>
                         </tr>
-                        <tr>
-                            <td class="px-4 py-2">2025-05-13</td>
-                            <td class="px-4 py-2">#67890</td>
-                            <td class="px-4 py-2 border-b border-[#0F1C39]">Approved</td>
-                            <td class="px-4 py-2 border-b border-[#0F1C39]"></td>
-                        </tr>
+                          <!-- Loop through update history -->
+                        @foreach ($reports->updates as $update)
+                            <tr>
+                                <td class="px-4 py-2 border-b border-[#0F1C39]">
+                                    {{ \Carbon\Carbon::parse($update->created_at)->format('Y-m-d H:i') }}
+                                </td>
+                                <td class="px-4 py-2 border-b border-[#0F1C39]">
+                                    {{ $update->user->employee_number ?? '—' }}
+                                </td>
+                                <td class="px-4 py-2 border-b border-[#0F1C39]">
+                                    {{ $update->status }}
+                                </td>
+                                <td class="px-4 py-2 border-b border-[#0F1C39]">
+                                    {{ $update->remarks ?? '—' }}
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
-            </div>
+        </div>
 @endsection

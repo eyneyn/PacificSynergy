@@ -11,10 +11,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('production_report_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->string('user_name')->nullable();
-            $table->json('changed_fields')->nullable(); // Optional: to store changed attributes
+            $table->string('status')->nullable();
             $table->text('remarks')->nullable(); // Optional: a comment for this update
-            $table->timestamps(); // updated_at = when update happened
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

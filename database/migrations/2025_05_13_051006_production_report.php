@@ -64,9 +64,9 @@ return new class extends Migration
             $table->string('status')->nullable();
 
             //User created
-            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
 
-            $table->timestamps(); // created_at and updated_at
+            $table->timestamp('created_at')->nullable();
         });
     }
 

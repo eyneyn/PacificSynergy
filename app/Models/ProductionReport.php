@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductionIssue;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User; 
 
 class ProductionReport extends Model
 {
@@ -63,12 +64,22 @@ class ProductionReport extends Model
     //Issues logs
     public function issues()
     {
-        return $this->hasMany(ProductionIssue::class);
+        return $this->hasMany(ProductionIssue::class, 'production_report_id');
     }
     protected static function booted()
     {
         static::creating(function ($report) {
-            $report->created_by_id = Auth::id();
+            $report->user_id = Auth::id();
         });
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function updates()
+    {
+        return $this->hasMany(ProductionReportUpdate::class);
+    }
+    public $timestamps = true;
+    const UPDATED_AT = null; // ← disables updated_at
 }

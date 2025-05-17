@@ -12,3 +12,7 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(20%) sepia(100%) saturate(1000%) hue-rotate(220deg);
+}

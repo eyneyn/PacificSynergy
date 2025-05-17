@@ -1,1 +1,1 @@
-hello im senior
+@include('layouts.navbar')
